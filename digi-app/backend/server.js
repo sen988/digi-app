@@ -2,6 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/database.js');
 
+const User = require('./models/user.js');
+const DiaryEntry = require('./models/diaryEntry.js');
+
 const userRoutes = require('./routes/userRoutes.js');
 
 const app = express();
