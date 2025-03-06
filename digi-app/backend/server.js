@@ -15,7 +15,6 @@ app.use(cors({
     allowedHeaders: 'Content-Type,Authorization'
 }));
 
-
 app.use(express.json());
 
 sequelize.sync()
@@ -28,6 +27,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', userRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}.`));
