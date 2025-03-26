@@ -2,10 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/database.js');
 
-const User = require('./models/user.js');
-const DiaryEntry = require('./models/diaryEntry.js');
+const { User, DiaryEntry } = require('./models/index.js');
 
 const userRoutes = require('./routes/userRoutes.js');
+const diaryEntryRoutes = require('./routes/diaryEntryRoutes.js');
 
 const app = express();
 
@@ -27,6 +27,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', userRoutes);
+app.use('/api/diary-entries', diaryEntryRoutes);
 
 
 const PORT = process.env.PORT || 5000;
