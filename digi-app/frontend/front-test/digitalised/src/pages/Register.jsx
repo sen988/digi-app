@@ -20,17 +20,24 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/api/users/register', {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to register user');
+      }
+
       const result = await response.json();
       console.log('Registration successful:', result);
+      alert('Registration successful!');
     } catch (error) {
       console.error('Error registering user:', error);
+      alert('Failed to register user. Please try again.');
     }
   };
 

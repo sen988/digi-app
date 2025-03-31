@@ -8,10 +8,6 @@ const DiaryEntry = () => {
 
       const [file, setFile] = useState(null);
 
-      const getCurrentUser = () => {
-        return 1;
-      };
-    
       const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -27,12 +23,11 @@ const DiaryEntry = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const currentUser = getCurrentUser();
+            const token = localStorage.getItem('token');
 
             const data = new FormData();
             data.append('title', formData.title);
             data.append('content', formData.content);
-            data.append('userId', currentUser);
             if (file) {
                 data.append('image', file);
             }
@@ -40,11 +35,16 @@ const DiaryEntry = () => {
       
           const response = await fetch('http://localhost:5000/api/diary-entries/create-entry', {
             method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
             body: data,
           });
+
           if (!response.ok) {
             throw new Error('Failed to save diary entry');
           }
+
           const result = await response.json();
           console.log('Diary entry saved:', result);
           alert('Diary entry saved successfully!');

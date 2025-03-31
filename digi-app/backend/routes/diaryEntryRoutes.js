@@ -1,7 +1,15 @@
 const express = require('express');
 const multer = require('multer');
-const router = express.Router();
+
+const { DiaryEntry } = require('../models/index.js');
+const { authenticateToken } = require('../middleware/authMiddleware.js');
 const { createEntry } = require('../controllers/diaryEntryController.js');
+
+const router = express.Router();
+
+if (!DiaryEntry) {
+  console.error('DiaryEntry model is not defined or imported correctly.');
+}
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -16,6 +24,6 @@ const storage = multer.diskStorage({
 
 );
 
-router.post('/create-entry', upload.single('image'), createEntry);
+router.post('/create-entry', authenticateToken, upload.single('image'), createEntry);
 
 module.exports = router;

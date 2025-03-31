@@ -6,6 +6,7 @@ const { User, DiaryEntry } = require('./models/index.js');
 
 const userRoutes = require('./routes/userRoutes.js');
 const diaryEntryRoutes = require('./routes/diaryEntryRoutes.js');
+const authRoutes = require('./routes/authRoutes.js');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/users', userRoutes);
 app.use('/api/diary-entries', diaryEntryRoutes);
+app.use('/api/auth', authRoutes);
 
 
 const PORT = process.env.PORT || 5000;
