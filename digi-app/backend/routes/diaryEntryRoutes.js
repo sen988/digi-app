@@ -3,7 +3,7 @@ const multer = require('multer');
 
 const { DiaryEntry } = require('../models/index.js');
 const { authenticateToken } = require('../middleware/authMiddleware.js');
-const { createEntry } = require('../controllers/diaryEntryController.js');
+const { createEntry, getUserEntries, retrieveEntry } = require('../controllers/diaryEntryController.js');
 
 const router = express.Router();
 
@@ -25,5 +25,7 @@ const storage = multer.diskStorage({
 );
 
 router.post('/create-entry', authenticateToken, upload.single('image'), createEntry);
+router.get('/user', authenticateToken, getUserEntries);
+router.get('/:id', authenticateToken, retrieveEntry);
 
 module.exports = router;

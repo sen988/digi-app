@@ -31,7 +31,7 @@ const Login = () => {
 
       const result = await response.json();
       console.log('Login successful:', result);
-      localStorage.setItem('token', result.token); // Save token to localStorage
+      localStorage.setItem('token', result.token);
       alert('Login successful!');
     } catch (error) {
       console.error('Error logging in:', error);
